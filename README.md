@@ -3,5 +3,5 @@ Projects that I've decided to create to become more familiar with varying pieces
 
 
 ## Contents
-- Remix
+- lastfm
   - Remix application that mimics some functionality of LastFM.
