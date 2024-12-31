@@ -1,10 +1,31 @@
-body {
+header {
+  box-shadow: 6px 6px 16px rgba(173, 170, 164, 0.502), -6px -6px 16px rgba(255, 255, 255, 50%);
+  border-radius: 5px;
 }
 
-ul {
-  list-style: circle !important;
-  padding-left: 1rem;
-  margin-left: 1rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+input {
+  box-shadow: inset 2px 2px 5px rgba(173, 170, 164, 0.802), inset -2px -2px 5px rgba(255, 255, 255, 50%);
+  border-radius: 5px;
+  background-color: #CBCBCB;
+  margin-bottom: 1rem;
+  padding: .2rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+.neu_button {
+  box-shadow: 6px 6px 16px rgba(173, 170, 164, 50%), -3px -3px 16px rgba(255, 255, 255, 50%);
+  border-radius: 5px;
+  background-color: #CBCBCB;
+  padding: .2rem;
+}
+
+.neu_button:hover {
+  box-shadow: 6px 6px 16px rgba(173, 170, 164, 0.802), -3px -3px 16px rgba(255, 255, 255, 50%);
+}
+
+.neu_button:active {
+  box-shadow: inset 2px 2px 5px rgba(173, 170, 164, 0.802), inset -2px -2px 5px rgba(255, 255, 255, 50%);
 }

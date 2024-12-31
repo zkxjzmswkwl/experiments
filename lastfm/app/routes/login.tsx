@@ -1,5 +1,7 @@
+import { PrismaClient } from "@prisma/client";
 import { ActionFunctionArgs, createCookie } from "@remix-run/node";
 import { Form, redirect } from "@remix-run/react";
+import { NeuButton } from "~/components/ui/neubutton";
 import { selectUserByUsername } from "~/selectors/users.selectors";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -11,31 +13,31 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return new Response("Username and password are required", { status: 400 });
   }
 
-  const user = await selectUserByUsername(username);
+  let user = await selectUserByUsername(username, new PrismaClient());
   if (!user || user.password !== password) {
     return new Response("Unable to login with the provided credentials", { status: 401 });
   }
 
-  const cookie = createCookie("user", {
+  let cookie = createCookie("user", {
     path: "/",
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 30
   });
 
-  const headers = new Headers();
+  let headers = new Headers();
   headers.append("Set-Cookie", await cookie.serialize(user.id));
-
   return redirect("/");
 };
 
 export default function Login() {
   return (
-    <div>
-      <h1>Login</h1>
-      <Form method="post">
+    <div className="w-1/2 mx-auto mt-8">
+      <Form method="post" className="flex flex-col">
+        <label htmlFor="username">Username</label>
         <input type="text" name="username" />
+        <label htmlFor="password">Password</label>
         <input type="password" name="password" />
-        <button type="submit">Login</button>
+        <NeuButton type="submit" text="login" />
       </Form>
     </div>
   );

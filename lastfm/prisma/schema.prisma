@@ -16,6 +16,7 @@ model Artist {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   albums    Album[]
+  Song      Song[]
 }
 
 model Album {
@@ -29,22 +30,25 @@ model Album {
 }
 
 model Song {
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  albumId   String
-  album     Album    @relation(fields: [albumId], references: [id])
-  Scrobble Scrobble[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  albumId   String?
+  album     Album?     @relation(fields: [albumId], references: [id])
+  artistId  String
+  // Artist can be credited on song but not album, so need both.
+  artist    Artist     @relation(fields: [artistId], references: [id])
+  Scrobble  Scrobble[]
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   username  String
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Scrobble Scrobble[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Scrobble  Scrobble[]
 }
 
 model Scrobble {

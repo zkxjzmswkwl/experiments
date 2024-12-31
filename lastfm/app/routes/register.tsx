@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { ActionFunctionArgs } from "@remix-run/node";
 import { Form, redirect } from "@remix-run/react";
-import { isUsernameAvailable } from "~/selectors/users.selectors";
+import { NeuButton } from "~/components/ui/neubutton";
+import { doesUserExist } from "~/selectors/users.selectors";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -9,13 +10,14 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   if (typeof username !== "string") {
     return new Response("Username is required", { status: 400 });
   }
-  const isAvailable = await isUsernameAvailable(username);
+
+  const prisma = new PrismaClient();
+  const isAvailable = await doesUserExist(username, prisma);
 
   if (!isAvailable) {
     return new Response("Username is already taken", { status: 400 });
   }
 
-  const prisma = new PrismaClient();
   await prisma.user.create({
     data: { username, password: "password" }
   });
@@ -26,11 +28,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function Register() {
   return (
-    <div>
-      <h1>Register</h1>
-      <Form method="post">
+    <div className="w-1/2 mx-auto mt-8">
+      <Form method="post" className="flex flex-col">
+        <label htmlFor="username">Username</label>
         <input type="text" name="username" />
-        <button type="submit">Register</button>
+        <NeuButton type="submit" text="Register"/>
       </Form>
     </div>
   );

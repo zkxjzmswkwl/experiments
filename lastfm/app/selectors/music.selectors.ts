@@ -15,3 +15,26 @@ export const selectUsersScrobbles = async (userId: string) => {
   await prisma.$disconnect();
   return scrobbles;
 };
+
+export const getArtistWithName = async (artistName: string, prisma: PrismaClient) => {
+  const artist = prisma.artist.findFirst({
+    where: {
+      name: artistName
+    }
+  });
+  await prisma.$disconnect();
+  return artist;
+}
+
+export const getSongByArtistWithName = async (songName: string, artistName: string, prisma: PrismaClient) => {
+  const song = prisma.song.findFirst({
+    where: {
+      name: songName,
+      artist: {
+        name: artistName
+      }
+    }
+  });
+  await prisma.$disconnect();
+  return song;
+}

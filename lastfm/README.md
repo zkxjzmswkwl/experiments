@@ -12,6 +12,7 @@ I lent a hand to a project using Remix a little while ago. Since then I've not t
   - I'd prefer it to not be used by default, since many open source projects attract contributors from all over. It doesn't save the core developers enough time to warrant potentially annoying would-be contributors from across the street.
   - That being said, for teams consisting entirely of people who work in this part of the world day-in day-out, sure. Why not.
 - The goal very much seems to be "success via many microscopic improvements". This occurred to me when I realized `loader`, a function which is automatically called, can optionally take `params` as an argument.
+- Prisma is considerably more verbose than Django's ORM but is intuitive enough for that to not bother me much. I've used it before and thought the same thing then.
 - Below is an example of a pattern I've seen repeated in many examples. It leaves me with questions. I've left those as comments.
 ```ts
 export const selectUsersScrobbles = async (userId: string) => {

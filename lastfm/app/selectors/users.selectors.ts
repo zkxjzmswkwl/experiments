@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-export const isUsernameAvailable = async (username: string) => {
-  const prisma = new PrismaClient();
+export const doesUserExist = async (username: string, prisma: PrismaClient) => {
   const user = await prisma.user.findFirst({
     where: { username: username }
   });
@@ -9,8 +8,7 @@ export const isUsernameAvailable = async (username: string) => {
   return user === null;
 };
 
-export const selectUserByUsername = async (username: string) => {
-  const prisma = new PrismaClient();
+export const selectUserByUsername = async (username: string, prisma: PrismaClient) => {
   const user = await prisma.user.findFirst({ where: { username } });
   await prisma.$disconnect();
   return user;
